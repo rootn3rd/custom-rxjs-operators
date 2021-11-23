@@ -11,6 +11,7 @@ import { myMerge } from './operators/mymerge';
 import { myMergeMap } from './operators/mymergemap';
 import { myOf } from './operators/myof';
 import { myReduce } from './operators/myreduce';
+import { myScan } from './operators/myscan';
 
 /* GENERIC TEMPLATE FOR ALL OPERATORS
 
@@ -80,3 +81,7 @@ myOf(1, 2, 3, 4, 5).subscribe((x) => console.log('myOf:', x));
 of(1, 2, 3, 4, 5)
   .pipe(myReduce((acc, cur) => acc + cur, 0))
   .subscribe((x) => console.log('myReduce:', x));
+
+of(1, 2, 3, 4, 5)
+  .pipe(myScan((acc, cur) => acc + cur, 0))
+  .subscribe((x) => console.log('myScan:', x));
