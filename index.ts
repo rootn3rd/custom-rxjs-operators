@@ -7,6 +7,7 @@ import { myCombineLatest } from './operators/mycombineLatest';
 import { myFilter } from './operators/myfilter';
 import { myInterval } from './operators/myinterval';
 import { myMap } from './operators/mymap';
+import { myMerge } from './operators/mymerge';
 
 of(1)
   .pipe(myOperator)
@@ -39,3 +40,7 @@ setTimeout(() => intSub.unsubscribe(), 400);
 from([1, 2, 3])
   .pipe(myMap((t) => t * 2))
   .subscribe((x) => console.log('myMap:', x));
+
+let m1 = from([10, 20, 30]);
+let m2 = from([100, 200]);
+myMerge(m1, m2).subscribe((x) => console.log('myMerge:', x));
