@@ -6,6 +6,7 @@ import { myOperator, myOperatorWithParameter } from './operators/myoperator';
 import { myCombineLatest } from './operators/mycombineLatest';
 import { myFilter } from './operators/myfilter';
 import { myInterval } from './operators/myinterval';
+import { myMap } from './operators/mymap';
 
 of(1)
   .pipe(myOperator)
@@ -29,6 +30,12 @@ from([1, 2, 3, 4, 5, 6])
   )
   .subscribe((x) => console.log('myFilter:', x));
 
-myInterval(200)
+const intSub = myInterval(200)
   .pipe(take(4))
   .subscribe((x) => console.log('myInterval:', x));
+
+setTimeout(() => intSub.unsubscribe(), 400);
+
+from([1, 2, 3])
+  .pipe(myMap((t) => t * 2))
+  .subscribe((x) => console.log('myMap:', x));
