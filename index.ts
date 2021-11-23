@@ -1,6 +1,15 @@
 import './style.css';
 
-import { of, map, Observable, Observer, interval, take, from } from 'rxjs';
+import {
+  of,
+  delay,
+  map,
+  Observable,
+  Observer,
+  interval,
+  take,
+  from,
+} from 'rxjs';
 
 import { myOperator, myOperatorWithParameter } from './operators/myoperator';
 import { myCombineLatest } from './operators/mycombineLatest';
@@ -12,6 +21,7 @@ import { myMergeMap } from './operators/mymergemap';
 import { myOf } from './operators/myof';
 import { myReduce } from './operators/myreduce';
 import { myScan } from './operators/myscan';
+import { mySwitchMap } from './operators/myswitchmap';
 
 /* GENERIC TEMPLATE FOR ALL OPERATORS
 
@@ -85,3 +95,9 @@ of(1, 2, 3, 4, 5)
 of(1, 2, 3, 4, 5)
   .pipe(myScan((acc, cur) => acc + cur, 0))
   .subscribe((x) => console.log('myScan:', x));
+
+const getDelayedObs = (val) => of(val, val, val).pipe(delay(val * 100));
+
+of(1, 2, 3, 4)
+  .pipe(mySwitchMap(getDelayedObs))
+  .subscribe((x) => console.log('mySwitchMap:', x));
