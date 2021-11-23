@@ -8,6 +8,29 @@ import { myFilter } from './operators/myfilter';
 import { myInterval } from './operators/myinterval';
 import { myMap } from './operators/mymap';
 import { myMerge } from './operators/mymerge';
+import { myMergeMap } from './operators/mymergemap';
+
+/* GENERIC TEMPLATE FOR ALL OPERATORS
+
+import { Observable, Observer } from 'rxjs';
+
+const myMergeMap = <T>(source: Observable<T>) => {
+  return new Observable((observer: Observer<T>) => {
+    
+    const subscription = source.subscribe({
+      next: (n) => {},
+      error: (err) => {},
+      complete: () => {},
+    });
+
+    return subscription;
+  });
+};
+
+export { myMergeMap };
+
+
+*/
 
 of(1)
   .pipe(myOperator)
@@ -44,3 +67,8 @@ from([1, 2, 3])
 let m1 = from([10, 20, 30]);
 let m2 = from([100, 200]);
 myMerge(m1, m2).subscribe((x) => console.log('myMerge:', x));
+
+const getObs = (val) => from([val + 1, val + 1, val + 1]);
+from([1, 3, 5])
+  .pipe(myMergeMap(getObs))
+  .subscribe((x) => console.log('myMergeMap', x));
