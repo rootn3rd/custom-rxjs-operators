@@ -9,6 +9,8 @@ import { myInterval } from './operators/myinterval';
 import { myMap } from './operators/mymap';
 import { myMerge } from './operators/mymerge';
 import { myMergeMap } from './operators/mymergemap';
+import { myOf } from './operators/myof';
+import { myReduce } from './operators/myreduce';
 
 /* GENERIC TEMPLATE FOR ALL OPERATORS
 
@@ -72,3 +74,9 @@ const getObs = (val) => from([val + 1, val + 1, val + 1]);
 from([1, 3, 5])
   .pipe(myMergeMap(getObs))
   .subscribe((x) => console.log('myMergeMap', x));
+
+myOf(1, 2, 3, 4, 5).subscribe((x) => console.log('myOf:', x));
+
+of(1, 2, 3, 4, 5)
+  .pipe(myReduce((acc, cur) => acc + cur, 0))
+  .subscribe((x) => console.log('myReduce:', x));
