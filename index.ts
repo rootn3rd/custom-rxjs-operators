@@ -22,6 +22,7 @@ import { myOf } from './operators/myof';
 import { myReduce } from './operators/myreduce';
 import { myScan } from './operators/myscan';
 import { mySwitchMap } from './operators/myswitchmap';
+import { myTakeUntil } from './operators/mytakeuntil';
 
 /* GENERIC TEMPLATE FOR ALL OPERATORS
 
@@ -101,3 +102,8 @@ const getDelayedObs = (val) => of(val, val, val).pipe(delay(val * 100));
 of(1, 2, 3, 4)
   .pipe(mySwitchMap(getDelayedObs))
   .subscribe((x) => console.log('mySwitchMap:', x));
+
+const takeUntilTrigger = of(1).pipe(delay(700));
+interval(300)
+  .pipe(myTakeUntil(takeUntilTrigger))
+  .subscribe((x) => console.log('myTakeUntil:', x));
