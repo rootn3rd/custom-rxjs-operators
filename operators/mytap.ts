@@ -14,11 +14,11 @@ const myTap =
           observer.next(n);
         },
         error: (err) => {
-          errorFn(err);
+          if (errorFn) errorFn(err);
           observer.error(err);
         },
         complete: () => {
-          completeFn();
+          if (completeFn) completeFn();
           observer.complete();
         },
       });

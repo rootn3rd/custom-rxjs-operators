@@ -24,6 +24,7 @@ import { myScan } from './operators/myscan';
 import { mySwitchMap } from './operators/myswitchmap';
 import { myTakeUntil } from './operators/mytakeuntil';
 import { myTap } from './operators/mytap';
+import { myTimer } from './operators/mytimer';
 
 /* GENERIC TEMPLATE FOR ALL OPERATORS
 
@@ -110,5 +111,15 @@ interval(300)
   .subscribe((x) => console.log('myTakeUntil:', x));
 
 from([1, 2, 3, 4])
-  .pipe(myTap((t) => console.log('Tapping:', t)))
+  .pipe(
+    myTap(
+      (t) => console.log('Tapping:', t),
+      (e) => console.log('Tapping: error', e),
+      () => console.log('Tapping: completed')
+    )
+  )
   .subscribe((x) => console.log('myTap:', x));
+
+myTimer(10, 20)
+  .pipe(take(3))
+  .subscribe((x) => console.log('myTimer:', x));
