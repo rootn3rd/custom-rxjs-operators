@@ -23,6 +23,7 @@ import { myReduce } from './operators/myreduce';
 import { myScan } from './operators/myscan';
 import { mySwitchMap } from './operators/myswitchmap';
 import { myTakeUntil } from './operators/mytakeuntil';
+import { myTap } from './operators/mytap';
 
 /* GENERIC TEMPLATE FOR ALL OPERATORS
 
@@ -107,3 +108,7 @@ const takeUntilTrigger = of(1).pipe(delay(700));
 interval(300)
   .pipe(myTakeUntil(takeUntilTrigger))
   .subscribe((x) => console.log('myTakeUntil:', x));
+
+from([1, 2, 3, 4])
+  .pipe(myTap((t) => console.log('Tapping:', t)))
+  .subscribe((x) => console.log('myTap:', x));
